@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import re
 import sys
 from hashlib import md5
@@ -19,7 +17,7 @@ class BunnyVideoDRM:
         "sec-ch-ua-platform": '"Linux"',
         "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
     }
-    session = requests.session()
+    session = requests.Session()
     session.headers.update(user_agent)
 
     def __init__(self, referer="https://127.0.0.1/", embed_url="", name="", path=""):
@@ -83,11 +81,12 @@ class BunnyVideoDRM:
             ).group(1)
             file_name_escaped = unescape(file_name_unescaped)
             self.file_name = re.sub(r"\.[^.]*$.*", ".mp4", file_name_escaped)
+            if not self.file_name.endswith(".mp4"):
+                self.file_name += ".mp4"
         self.path = path if path else "~/Videos/Bunny CDN/"
 
     def prepare_dl(self) -> str:
-
-        def ping(time: int, paused: str, res: str):
+        def ping(time: float, paused: str, res: str):
             md5_hash = md5(
                 f"{self.secret}_{self.context_id}_{time}_{paused}_{res}".encode("utf8")
             ).hexdigest()
@@ -116,7 +115,7 @@ class BunnyVideoDRM:
                 params=params,
                 headers=self.headers["playlist"],
             )
-            resolutions = re.findall(r"RESOLUTION=(.*)", response.text)[::-1]
+            resolutions = re.findall(r"\s*(.*?)\s*/video\.drm", response.text)[::-1]
             if not resolutions:
                 sys.exit(2)
             else:
@@ -154,7 +153,6 @@ class BunnyVideoDRM:
                 "User-Agent": self.user_agent["user-agent"],
             },
             "concurrent_fragment_downloads": 10,
-            # 'external_downloader': 'aria2c'
             "nocheckcertificate": True,
             "outtmpl": self.file_name,
             "restrictfilenames": True,
@@ -185,75 +183,75 @@ if __name__ == "__main__":
             "name": ""
         },
         {
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10598",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/dffe5482-b1db-46ce-b05e-674fd1e479b5",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10599",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/613e49b5-896f-458e-b692-1134db661639",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10600",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/a2732b7a-07bb-43f7-967b-5cf2cd1be673",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10601",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/58daac5a-f361-4757-b61e-d5ea6030cd43",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10602",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/083a2c5e-bb82-4f87-be9d-10750d64e424",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10603",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/93d888da-20a7-46cc-8ae3-9cad03c4f6ee",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10604",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/340dee28-fb45-435e-8b7a-a2c57aad0c81",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10605",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/322e5f21-3778-4d4b-974c-3219da025aaa",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10606",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/eb4453e6-6b0e-4673-a1a9-6d84e9145e06",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10607",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/8f34fba7-25c4-4390-93b9-1b1415cf6b3c",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10608",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/ef30bdf0-c65a-461c-8c6a-c106da4e12e5",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10609",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/cfaaa1d5-d98f-47d1-a117-fb705d91c0f7",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10610",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/1568a090-79c8-435d-a318-ea2329436426",
-    "name": ""
-},
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10611",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/57d8d537-07ea-45cc-8120-7ccc0e371d02",
-    "name": ""
-},
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10598",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/dffe5482-b1db-46ce-b05e-674fd1e479b5",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10599",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/613e49b5-896f-458e-b692-1134db661639",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10600",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/a2732b7a-07bb-43f7-967b-5cf2cd1be673",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10601",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/58daac5a-f361-4757-b61e-d5ea6030cd43",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10602",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/083a2c5e-bb82-4f87-be9d-10750d64e424",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10603",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/93d888da-20a7-46cc-8ae3-9cad03c4f6ee",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10604",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/340dee28-fb45-435e-8b7a-a2c57aad0c81",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10605",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/322e5f21-3778-4d4b-974c-3219da025aaa",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10606",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/eb4453e6-6b0e-4673-a1a9-6d84e9145e06",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10607",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/8f34fba7-25c4-4390-93b9-1b1415cf6b3c",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10608",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/ef30bdf0-c65a-461c-8c6a-c106da4e12e5",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10609",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/cfaaa1d5-d98f-47d1-a117-fb705d91c0f7",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10610",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/1568a090-79c8-435d-a318-ea2329436426",
+        "name": ""
+    },
+    {
+        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10611",
+        "embed_url": "https://iframe.mediadelivery.net/embed/16482/57d8d537-07ea-45cc-8120-7ccc0e371d02",
+        "name": ""
+    },
         # tambahkan dictionary lainnya untuk video lainnya
     ]
 
@@ -267,16 +265,16 @@ if __name__ == "__main__":
         video.download()
 
 
-# if __name__ == '__main__':
-
+# if __name__ == "__main__":
 #     video = BunnyVideoDRM(
 #         # insert the referer between the quotes below (address of your webpage)
-#         referer='https://dashboard.codepolitan.com/learn/courses/belajar-framework-laravel-dasar/lessons/8217',
+#         referer="",
 #         # paste your embed link
-#         embed_url='https://iframe.mediadelivery.net/embed/16482/bb51401e-9541-40bf-aeb1-3aa55cfc9bda',
+#         embed_url="",
 #         # you can override file name, no extension
 #         name="",
 #         # you can override download path
-#         path="")
+#         path=r"",
+#     )
 #     # video.session.close()
 #     video.download()
