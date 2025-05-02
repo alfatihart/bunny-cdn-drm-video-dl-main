@@ -20,7 +20,7 @@ class BunnyVideoDRM:
     session = requests.Session()
     session.headers.update(user_agent)
 
-    def __init__(self, referer="https://127.0.0.1/", embed_url="", name="", path=""):
+    def __init__(self, referer="https://127.0.0.1/", embed_url="", name="", path="", use_auto_name=False):
         self.referer = referer if referer else sys.exit(1)
         self.embed_url = embed_url if embed_url else sys.exit(1)
         self.guid = urlparse(embed_url).path.split("/")[-1]
@@ -73,7 +73,7 @@ class BunnyVideoDRM:
         )
         search = re.search(r'contextId=(.*?)&secret=(.*?)"', embed_page)
         self.context_id, self.secret = search.group(1), search.group(2)
-        if name:
+        if name and not use_auto_name:
             self.file_name = f"{name}.mp4"
         else:
             file_name_unescaped = re.search(
@@ -173,85 +173,20 @@ class BunnyVideoDRM:
 
 
 if __name__ == "__main__":
-    path = r"~\Videos/Bunny CDN\Belajar JavaScript"
+    path = r"~\Videos\Bunny CDN\REST API Sosmed Laravel 11"
     # path = r"D:\Multimedia\Video Tutorial\Codepolitan\CRUD PHP 8 dan MySQL"
     # path = r"D:/Multimedia/Video Tutorial/Codepolitan/CRUD PHP 8 dan MySQL"
+    use_auto_name = True  # True = gunakan nama otomatis dari embed page
     videos = [
-        {
-            "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10597",
-            "embed_url": "https://iframe.mediadelivery.net/embed/16482/c2887659-99e7-44f9-a4e8-439c7dd0e25f",
-            "name": ""
-        },
-        {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10598",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/dffe5482-b1db-46ce-b05e-674fd1e479b5",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10599",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/613e49b5-896f-458e-b692-1134db661639",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10600",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/a2732b7a-07bb-43f7-967b-5cf2cd1be673",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10601",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/58daac5a-f361-4757-b61e-d5ea6030cd43",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10602",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/083a2c5e-bb82-4f87-be9d-10750d64e424",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10603",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/93d888da-20a7-46cc-8ae3-9cad03c4f6ee",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10604",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/340dee28-fb45-435e-8b7a-a2c57aad0c81",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10605",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/322e5f21-3778-4d4b-974c-3219da025aaa",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10606",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/eb4453e6-6b0e-4673-a1a9-6d84e9145e06",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10607",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/8f34fba7-25c4-4390-93b9-1b1415cf6b3c",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10608",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/ef30bdf0-c65a-461c-8c6a-c106da4e12e5",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10609",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/cfaaa1d5-d98f-47d1-a117-fb705d91c0f7",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10610",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/1568a090-79c8-435d-a318-ea2329436426",
-        "name": ""
-    },
-    {
-        "referer": "https://dashboard.codepolitan.com/learn/courses/php-8-dan-mysql-panduan-crud-lengkap-untuk-pemula/lessons/10611",
-        "embed_url": "https://iframe.mediadelivery.net/embed/16482/57d8d537-07ea-45cc-8120-7ccc0e371d02",
-        "name": ""
-    },
+{
+    "referer": "https://dashboard.codepolitan.com/learn/courses/pengembangan-web-fullstack-dengan-laravel-11/lessons/11099",
+    "embed_url": "https://iframe.mediadelivery.net/embed/16482/9bf22a92-8875-40cd-b7a4-326f64b41dca",
+    "name": ""
+},
+
+
+
+
         # tambahkan dictionary lainnya untuk video lainnya
     ]
 
@@ -261,6 +196,7 @@ if __name__ == "__main__":
             embed_url=video_info["embed_url"],
             name=video_info["name"],
             path=path,
+            use_auto_name=use_auto_name
         )
         video.download()
 
