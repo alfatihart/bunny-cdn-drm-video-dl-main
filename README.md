@@ -24,8 +24,7 @@ between the quotes, as well as the webpage referer, and run the script.
 python3 b-cdn-drm-vod-dl.py
 ```
 
-> Embed link structure: [
-> `https://iframe.mediadelivery.net/embed/{video_library_id}/{video_id}`](https://docs.bunny.net/docs/stream-embedding-videos)
+> Embed link structure: [ > `https://iframe.mediadelivery.net/embed/{video_library_id}/{video_id}`](https://docs.bunny.net/docs/stream-embedding-videos)
 
 ## Expected Result
 
@@ -51,3 +50,5 @@ name.
 After that, the download link (an HLS/M3U8 URL) is ready to be fed to `yt-dlp` to download the video segments, decrypt
 them (as Bunny CDN's "DRM" videos are encrypted with the AES-128 algorithm), and merge them into a single playable video
 file.
+
+Original source code: [bunny-cdn-video-dl](https://github.com/mal1k-me/bunny-cdn-drm-video-dl)
