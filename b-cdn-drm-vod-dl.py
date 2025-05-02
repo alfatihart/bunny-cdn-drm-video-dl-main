@@ -171,22 +171,20 @@ class BunnyVideoDRM:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download(url)
 
-
 if __name__ == "__main__":
-    path = r"~\Videos\Bunny CDN\REST API Sosmed Laravel 11"
-    # path = r"D:\Multimedia\Video Tutorial\Codepolitan\CRUD PHP 8 dan MySQL"
-    # path = r"D:/Multimedia/Video Tutorial/Codepolitan/CRUD PHP 8 dan MySQL"
+    path = r"~\Videos\Bunny CDN\REST API Laravel 11"
     use_auto_name = True  # True = gunakan nama otomatis dari embed page
     videos = [
-{
-    "referer": "https://dashboard.codepolitan.com/learn/courses/pengembangan-web-fullstack-dengan-laravel-11/lessons/11099",
-    "embed_url": "https://iframe.mediadelivery.net/embed/16482/9bf22a92-8875-40cd-b7a4-326f64b41dca",
-    "name": ""
-},
-
-
-
-
+        {
+            "referer": "https://dashboard.codein.com/learn/courses/laravel-11-rest-api/lessons/1178",
+            "embed_url": "https://iframe.mediadelivery.net/embed/1682/59a6fc99-bb94-92721cb43bd7",
+            "name": "Intro"
+        },
+        {
+            "referer": "https://dashboard.codein.com/learn/courses/laravel-11-rest-api/lessons/1179",
+            "embed_url": "https://iframe.mediadelivery.net/embed/1642/3f414d73-8c3e-518afb88eb3a",
+            "name": "Tools"
+        },
         # tambahkan dictionary lainnya untuk video lainnya
     ]
 
